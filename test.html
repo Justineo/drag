@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Drag test</title>
+<style>
+body {
+    font-size: 12px;
+}
+
+.container {
+    position: relative;
+    float: left;
+    overflow: visible;
+    margin: 20px;
+    padding: 0;
+    width: 320px;
+    height: 240px;
+    min-width: 0;
+    min-height: 0;
+    background: rgba(0, 0, 0, .05);
+    resize: both;
+}
+
+.resize .container {
+    overflow: scroll;
+}
+
+.box {
+    border: 1px solid #999;
+    background: url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7) repeat\0;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#cc80ff80,endColorstr=#cc80ff80)\0;
+    zoom: 1\0;
+    background: rgba(128, 255, 128, 0.8);
+    overflow: auto;
+}
+:root .box {
+    filter: none\9;
+}
+
+.text {
+    margin: 10px;
+}
+
+.handle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: 1px solid #999;
+    width: 30px;
+    height: 30px;
+    background-color: #69c;
+}
+
+pre {
+    white-space: pre;
+}
+
+#control {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, .1);
+    padding: 3px 6px;
+    color: #666;
+}
+</style>
+</head>
+<body>
+<div id="control"><label><input type="checkbox" id="resize"> Resizable container</label></div>
+<div class="container">
+    <div class="box" style="width: 200px; height: 200px; position: absolute; right: 0;"><div class="handle"></div><div class="text"><pre>position: absolute;
+right: 0;</pre></div></div>
+</div>
+<div class="container">
+    <div class="box" style="width: 15em; height: 15em; position: relative; top: 2em;"><div class="text"><pre>position: relative;
+top: 2em;</pre></div></div>
+</div>
+<div class="container">
+    <div class="box" style="width: 80%; height: 15em; position: relative; bottom: -2em; right: -100pt;"><div class="text"><pre>position: relative;
+bottom: -2em;
+right: -100pt;</pre></div></div>
+</div>
+<div class="container">
+    <div class="box" style="height: 80%; position: absolute; left: 30%; right: 60px;"><div class="text"><pre>position: absolute;
+left: 30%;
+right: 50%;</pre></div></div>
+</div>
+<div class="container">
+    <div class="box" style="width: 200px; height: 200px; position: absolute;"><div class="text"><pre>position: absolute;</pre></div></div>
+</div>
+<div class="container">
+    <div class="box" style="width: 200px; height: 200px; position: fixed; right: 10px; bottom: 20px; -webkit-transform: translate(20px, 10px) rotate3d(10, 20, 30, 45deg); transform: translate(20px, 10px) rotate3d(10, 20, 30, 45deg);"><div class="text"><pre>position: fixed;
+right: 10px;
+bottom: 20px;
+transform: translate(20px, 10px) rotate3d(10, 20, 30, 45deg);</pre></div></div>
+</div>
+<script src="drag.js"></script>
+<script>
+var boxes = [];
+var all = document.getElementsByTagName('*');
+for (var i = all.length - 1; i >= 0; i--) {
+    if (all[i].className === 'box') {
+        boxes.push(all[i]);
+    }
+};
+
+for (var i = 0, j = boxes.length; i < j; i++) {
+    var box = boxes[i];
+    var options = {};
+    if (box.firstChild.className === 'handle') {
+        options.handle = box.firstChild;
+    }
+    drag(boxes[i], options);
+}
+
+var resize = document.getElementById('resize');
+resize.onclick = function () {
+    document.body.className = document.body.className === 'resize' ? '' : 'resize';
+};
+</script>
+</body>
+</html>

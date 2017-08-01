@@ -1,0 +1,11 @@
+{
+  "name": "drag",
+  "version": "0.0.1",
+  "description": "Super compatible draggable implementation.",
+  "main": "index.js",
+  "keywords": [
+    "drag", "draggable"
+  ],
+  "author": "Justineo(justice360@gmail.com)",
+  "license": "MIT"
+}
